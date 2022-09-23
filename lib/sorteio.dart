@@ -3,7 +3,10 @@ import 'dezena.dart';
 class Sorteio {
   List<Dezena> listDezenas = [];
   List<int> lstRepetidas = [];
+  List<int> lstNumerais = [];
   int totRepetidas = 0;
+  int totRepPar = 0;
+  int totRepImpar = 0;
   int idsorteio = 0;
   int totPar = 0;
   int totImpar = 0;
@@ -48,6 +51,12 @@ class Sorteio {
 
   Sorteio.Set(List<Dezena> lista) {
     listDezenas.addAll(lista);
+  }
+
+  void SetListaNumerais() {
+    listDezenas.forEach((element) {
+      lstNumerais.add(element.numeral);
+    });
   }
 
   Sorteio FactorySorteio() {

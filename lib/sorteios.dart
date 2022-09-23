@@ -12,7 +12,7 @@ class Sorteios {
 
   int totalSorteios() => sorteios.length;
 
-  void carregaSorteio(List<List<int>> dados) {
+  void loadSorteio(List<List<int>> dados) {
     var sorteio = Sorteio();
     dados.forEach((d) {
       d.forEach((int numero) {

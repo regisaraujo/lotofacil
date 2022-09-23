@@ -19,6 +19,7 @@
 //import 'dart:typed_data';
 
 import 'package:lotofacil/ler_arquivo.dart';
+import 'package:lotofacil/repeticoes.dart';
 import 'package:lotofacil/sorteios.dart';
 
 void main() {
@@ -30,10 +31,25 @@ void main() {
     print('Lista dos jogos não foi carregada');
     return;
   }
-  var sorteios = Sorteios();
-  //print(listJogos);
-  sorteios.carregaSorteio(listJogos);
-  int totjogos = sorteios.totSorteios;
+  var todos = Sorteios();
+  todos.loadSorteio(listJogos);
+  print(todos.sorteios.length);
+  print(todos.totSorteios);
+  var inicio = todos.sorteios.length - 1;
+  for (var i = inicio; i > 1; i--) {
+    var repeticao = Repeticoes();
+    var sorteio = todos.sorteios[i - 1];
+    var sorteioAnterior = todos.sorteios[i];
+    repeticao.ListDezenasRepetidasEntre2Jogos(sorteioAnterior, sorteio);
+    repeticao.TotalParesImparesListaDeRepetidasEntre2Jogos(sorteio);
+    //print('Sorteio Anterior:  ');
+    //sorteioAnterior.listDezenas.forEach((element) => print(element.numeral));
+    //print('Sorteio Atual:  ');
+    //sorteio.listDezenas.forEach((element) => print(element.numeral));
+    ;
+    //print('Repetidas: ');
+    //print(sorteio.lstRepetidas);
+  }
 
 //  var analise = EstruturaDadosAnalise();
   // Carrega o conjunto de jogos que serão analisados

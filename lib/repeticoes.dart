@@ -1,10 +1,12 @@
 import 'sorteio.dart';
 
+// Acumula em gpiRepetidas as dezenas repetidas e a qunatidade de repetições
+// da mesma.
 class Repeticoes {
   Map<String, Map<int, int>> gpiRepetida = {};
   Map<String, List<dynamic>> rngRepetida = {};
 
-  void Processa(Sorteio element, Sorteio ultSort) {
+  void AcumulaDezenasRepetidas(Sorteio element, Sorteio ultSort) {
     if (gpiRepetida.containsKey(element.gpi) == false) {
       gpiRepetida[element.gpi] = {};
     }
@@ -22,6 +24,49 @@ class Repeticoes {
         }
       });
     });
+  }
+
+  void ListDezenasRepetidasEntre2Jogos(
+      Sorteio sorteioAnterior, Sorteio sorteio) {
+    sorteioAnterior.SetListaNumerais();
+    sorteio.SetListaNumerais();
+    var sAnterior = Set.from(sorteioAnterior.lstNumerais);
+    var ssorteio = Set.from(sorteio.lstNumerais);
+    var linha1 = 'Anterior: ' + sorteioAnterior.idsorteio.toString() + '  ';
+    var linha2 = 'Atual: ' + sorteio.idsorteio.toString() + '  ';
+    var linha3 = 'Repetidas: ';
+
+    sAnterior.forEach((element) {
+      linha1 = linha1 + '  ' + element.toString();
+    });
+    print(linha1);
+    ssorteio.forEach((element) {
+      linha2 = linha2 + '  ' + element.toString();
+    });
+    print(linha2);
+    sorteio.lstRepetidas =
+        List<int>.from(ssorteio.intersection(sAnterior).toList());
+    sorteio.lstRepetidas.forEach((element) {
+      linha3 = linha3 + '   ' + element.toString();
+    });
+    print('>>>> ' + linha3);
+    TotalParesImparesListaDeRepetidasEntre2Jogos(sorteio);
+  }
+
+  void TotalParesImparesListaDeRepetidasEntre2Jogos(Sorteio sorteio) {
+    var countPar = 0;
+    var lista = sorteio.lstRepetidas;
+    lista.forEach((dez) {
+      if ((dez % 2) == 0) {
+        countPar++;
+      }
+    });
+    sorteio.totRepPar = countPar;
+    sorteio.totRepImpar = sorteio.lstRepetidas.length - countPar;
+    print('Par/Impar  ' +
+        sorteio.totRepPar.toString() +
+        '-' +
+        sorteio.totRepImpar.toString());
   }
 
   Map<String, Map<int, int>> get() => gpiRepetida;
