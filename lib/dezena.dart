@@ -18,7 +18,8 @@ class Dezena {
 
 bool EmFibonacci(int dezena) {
   List<int>? lstFibonacci = [1, 2, 3, 5, 8, 13, 21];
-  return lstFibonacci.contains(dezena);
+  var fi = lstFibonacci.contains(dezena);
+  return fi;
 }
 
 bool EmPrimo(int dezena) {

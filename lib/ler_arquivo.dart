@@ -1,7 +1,7 @@
-import 'dart:convert';
+//import 'dart:convert';
 import 'dart:io';
 
-import 'package:csv/csv.dart';
+//import 'package:csv/csv.dart';
 
 class LerArquivoCSV {
   final String nomeArquivo;
@@ -44,7 +44,7 @@ class LerArquivoCSV {
     }
     return dadosInt;
   }
-*/
+
   Future<List<List<dynamic>>> _get() async {
     final input = File(nomeArquivo).openRead();
     return (await input
@@ -52,4 +52,5 @@ class LerArquivoCSV {
         .transform(CsvToListConverter())
         .toList());
   }
+*/
 }

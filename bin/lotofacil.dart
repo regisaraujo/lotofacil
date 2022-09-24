@@ -33,24 +33,25 @@ void main() {
   }
   var todos = Sorteios();
   todos.loadSorteio(listJogos);
-  print(todos.sorteios.length);
-  print(todos.totSorteios);
   var inicio = todos.sorteios.length - 1;
-  for (var i = inicio; i > 1; i--) {
+/*  for (var i = inicio; i > 1; i--) {
     var repeticao = Repeticoes();
     var sorteio = todos.sorteios[i - 1];
     var sorteioAnterior = todos.sorteios[i];
     repeticao.ListDezenasRepetidasEntre2Jogos(sorteioAnterior, sorteio);
-    repeticao.TotalParesImparesListaDeRepetidasEntre2Jogos(sorteio);
+    var linha1 = 'Sorteio Anterior: ' + sorteioAnterior.idsorteio.toString() + '  ';
+    var linha2 = 'Sorteio Atual: ' + sorteio.idsorteio.toString() + '  ';
+    var linha3 = 'Dezenas Repetidas: ';
+
     //print('Sorteio Anterior:  ');
     //sorteioAnterior.listDezenas.forEach((element) => print(element.numeral));
     //print('Sorteio Atual:  ');
     //sorteio.listDezenas.forEach((element) => print(element.numeral));
-    ;
-    //print('Repetidas: ');
-    //print(sorteio.lstRepetidas);
-  }
 
+    //print('Repetidas: ');
+    //print(sorteio.lstRepetidas);  
+  }
+*/
 //  var analise = EstruturaDadosAnalise();
   // Carrega o conjunto de jogos que serão analisados
 //  analise.SetSorteios(sorteios.get());

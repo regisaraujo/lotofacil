@@ -44,13 +44,18 @@ class Repeticoes {
       linha2 = linha2 + '  ' + element.toString();
     });
     print(linha2);
-    sorteio.lstRepetidas =
-        List<int>.from(ssorteio.intersection(sAnterior).toList());
+    sorteio.lstRepetidas = List<int>.from(ssorteio.intersection(sAnterior));
     sorteio.lstRepetidas.forEach((element) {
       linha3 = linha3 + '   ' + element.toString();
     });
-    print('>>>> ' + linha3);
+    print('Repetidas: ' + linha3);
     TotalParesImparesListaDeRepetidasEntre2Jogos(sorteio);
+    print('Total Fibo: ' +
+        sorteio.totFibonacci.toString() +
+        '  ' +
+        'Total soma dezenas: ' +
+        sorteio.totSoma.toString());
+    print('------------------------------------------------------');
   }
 
   void TotalParesImparesListaDeRepetidasEntre2Jogos(Sorteio sorteio) {
@@ -61,12 +66,12 @@ class Repeticoes {
         countPar++;
       }
     });
-    sorteio.totRepPar = countPar;
-    sorteio.totRepImpar = sorteio.lstRepetidas.length - countPar;
-    print('Par/Impar  ' +
-        sorteio.totRepPar.toString() +
-        '-' +
-        sorteio.totRepImpar.toString());
+    sorteio.gpiRepet = countPar.toString() +
+        (sorteio.lstRepetidas.length - countPar).toString();
+    print('Par/Impar Reeptidas: ' +
+        sorteio.gpiRepet +
+        '  Par/Impar Sorteio: ' +
+        sorteio.gpi);
   }
 
   Map<String, Map<int, int>> get() => gpiRepetida;

@@ -5,8 +5,7 @@ class Sorteio {
   List<int> lstRepetidas = [];
   List<int> lstNumerais = [];
   int totRepetidas = 0;
-  int totRepPar = 0;
-  int totRepImpar = 0;
+  String gpiRepet = '';
   int idsorteio = 0;
   int totPar = 0;
   int totImpar = 0;
@@ -114,16 +113,32 @@ class Sorteio {
     return totPorColuna;
   }
 
-  int TotalFibonacci() {
-    return listDezenas.where((element) => element.fibonacci == true).length;
+  void TotalFibonacci() {
+    totFibonacci = 0;
+    listDezenas.forEach((element) {
+      if (element.fibonacci) {
+        totFibonacci++;
+      }
+    });
   }
 
-  int TotalMoldura() {
-    return listDezenas.where((element) => element.moldura == true).length;
+  void TotalMoldura() {
+    totMoldura = 0;
+    listDezenas.forEach((element) {
+      if (element.moldura) {
+        totMoldura++;
+      }
+    });
   }
 
-  int TotalPrimo() {
-    return listDezenas.where((element) => element.primo == true).length;
+  void TotalPrimo() {
+    //   totMoldura
+    totPrimo = 0;
+    listDezenas.forEach((element) {
+      if (element.primo) {
+        totPrimo++;
+      }
+    });
   }
 
   List<int> ArrayBinario() {
@@ -147,9 +162,10 @@ class Sorteio {
   }
 
   int TotalSoma() {
+    totSoma = 0;
     listDezenas.forEach((Dezena d) {
       totSoma += d.numeral;
     });
-    return totSoma;
+    return totSoma = totSoma;
   }
 }

@@ -1,5 +1,6 @@
 import 'sorteio.dart';
 import 'dezena.dart';
+import 'repeticoes.dart';
 
 class Sorteios {
   int totSorteios = 0;
@@ -27,6 +28,13 @@ class Sorteios {
       sorteios.add(sorteio);
       sorteio = Sorteio();
     });
+    var inicio = sorteios.length - 1;
+    for (var i = inicio; i > 1; i--) {
+      var repeticao = Repeticoes();
+      var sorteio = sorteios[i - 1];
+      var sorteioAnterior = sorteios[i];
+      repeticao.ListDezenasRepetidasEntre2Jogos(sorteioAnterior, sorteio);
+    }
   }
 
   void Sort() {
