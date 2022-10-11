@@ -4,7 +4,7 @@ version: 1.0.0
 # homepage: https://www.example.com
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 # dependencies:
 #   path: ^1.8.0
@@ -12,6 +12,8 @@ environment:
 dev_dependencies:
   pedantic: ^1.10.0
   test: ^1.16.0
+  trotter: ^2.0.0-dev.1
+
 dependencies:
   csv: ^5.0.1
   sortedmap: ^0.5.1

@@ -25,6 +25,9 @@ class LerArquivoCSV {
       dadosRet.add(elem2list);
     });
     //print(dadosRet);
+    if (dadosRet.length < 15) {
+      print('Erro na leitura do dado ' + dadosRet.toString());
+    }
     return dadosRet;
   }
 

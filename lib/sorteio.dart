@@ -4,8 +4,13 @@ class Sorteio {
   List<Dezena> listDezenas = [];
   List<int> lstRepetidas = [];
   List<int> lstNumerais = [];
+  List<int> lstNaoRepetidas = [];
+  List<int> lstNovasSorteioAnteriorRepetidasSorteioAtual = [];
+  List<int> lstRepetidasSorteadas = [];
+  List<int> lstRepetidasMoldura = [];
   int totRepetidas = 0;
   String gpiRepet = '';
+  int totRepMoldura = 0;
   int idsorteio = 0;
   int totPar = 0;
   int totImpar = 0;
@@ -14,10 +19,14 @@ class Sorteio {
   int totPrimo = 0;
   int totSoma = 0;
   int totMult3 = 0;
+  bool fechamento = false;
+  String naipe = '';
   String gpi = '';
   String totPorLinha = '';
   String totPorColuna = '';
   String strBinario = '';
+  List<int> lstNaoSorteadas = [];
+  List<int> jogoValido = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   List<int> arrBinario = [
     0,
     0,
@@ -49,13 +58,10 @@ class Sorteio {
   Sorteio();
 
   Sorteio.Set(List<Dezena> lista) {
+    if (lista.length < 15) {
+      print('Erro na carga das DEzenas');
+    }
     listDezenas.addAll(lista);
-  }
-
-  void SetListaNumerais() {
-    listDezenas.forEach((element) {
-      lstNumerais.add(element.numeral);
-    });
   }
 
   Sorteio FactorySorteio() {
@@ -73,6 +79,9 @@ class Sorteio {
 
   void Processa() {
     SetGPI();
+    SetListaNumerais();
+    DezenasNaoSorteadas();
+    SetNaipe();
     TotalFibonacci();
     TotalMoldura();
     TotalPrimo();
@@ -82,6 +91,7 @@ class Sorteio {
     StringBinario();
   }
 
+  // Calcula o total de pares e impares e atribui a gpi
   int SetGPI() {
     var tp = listDezenas.where((element) => element.par == true).length;
     if (tp > 0) {
@@ -91,6 +101,39 @@ class Sorteio {
     return tp;
   }
 
+  // Gera a lista apenas com os numeros. Difere de listDezenas que contem o
+  // objeto Dezena
+  void SetListaNumerais() {
+    listDezenas.forEach((element) {
+      lstNumerais.add(element.numeral);
+    });
+    if (listDezenas.length < 15) {
+      print('Erro no tamanho dos dados DEZENAS ...Sorteio: ' +
+          idsorteio.toString());
+    }
+  }
+
+  // Varre de 1-25 para contruir a lista de dezenas nao Sorteadas
+  void DezenasNaoSorteadas() {
+    for (var i = 1; i <= 25; i++) {
+      if (!lstNumerais.contains(i)) {
+        lstNaoSorteadas.add(i);
+      }
+    }
+    // print(lstNaoSorteadas);
+  }
+
+  // Calcula o Naipe do jogo
+  void SetNaipe() {
+    var n1 = listDezenas.where((element) => element.numeral < 9).length;
+    var n2 = listDezenas
+        .where((element) => (element.numeral > 8) && (element.numeral < 18))
+        .length;
+    var n3 = listDezenas.where((element) => (element.numeral > 17)).length;
+    naipe = n1.toString() + n2.toString() + n3.toString();
+  }
+
+  // Calcula o total de dezenas por linha
   String TotalDezenasLinha() {
     var tl = 0;
     var j = 0;
@@ -102,6 +145,7 @@ class Sorteio {
     return totPorLinha;
   }
 
+  // Calcula o total de dezenas por coluna
   String TotalDezenasColuna() {
     var tl = 0;
     var j = 0;
@@ -113,6 +157,7 @@ class Sorteio {
     return totPorColuna;
   }
 
+  // Calcula o total de dezenas pertencentes a sequencia de Fibonacci
   void TotalFibonacci() {
     totFibonacci = 0;
     listDezenas.forEach((element) {
@@ -122,21 +167,23 @@ class Sorteio {
     });
   }
 
+  // Calcula o total de dezenas pertencentes a moldura
   void TotalMoldura() {
     totMoldura = 0;
     listDezenas.forEach((element) {
       if (element.moldura) {
-        totMoldura++;
+        totMoldura = totMoldura + 1;
       }
     });
   }
 
+  // Calcula o total de numeros primos
   void TotalPrimo() {
     //   totMoldura
     totPrimo = 0;
     listDezenas.forEach((element) {
       if (element.primo) {
-        totPrimo++;
+        totPrimo = totPrimo + 1;
       }
     });
   }
@@ -161,11 +208,23 @@ class Sorteio {
     return strBinario;
   }
 
+  // Calcula o total da soma das dezenas
   int TotalSoma() {
     totSoma = 0;
     listDezenas.forEach((Dezena d) {
       totSoma += d.numeral;
     });
     return totSoma = totSoma;
+  }
+
+  // Calcula o total de ocorrencias de multiplos de 3
+  int TotalMultiplosDe3() {
+    var totMult = 0;
+    lstNumerais.forEach((numero) {
+      if ((numero % 3) == 0) {
+        totMult++;
+      }
+    });
+    return totMult;
   }
 }

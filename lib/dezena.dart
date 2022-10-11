@@ -102,5 +102,8 @@ Dezena ProcessaDezena(int numeral) {
 
   var dez =
       Dezena.Set(numeral, par, fibonacci, moldura, primo, linha, coluna, mult3);
+  if (dez == Null) {
+    print('erro no retorno da dezena');
+  }
   return dez;
 }
