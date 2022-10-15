@@ -85,6 +85,7 @@ Dezena ProcessaDezena(int numeral) {
            21, 22, 23, 24, 25
               
   */
+
   fibonacci = EmFibonacci(numeral);
   moldura = EmMoldura(numeral);
   primo = EmPrimo(numeral);

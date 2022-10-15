@@ -7,19 +7,21 @@ class Criterios {
   // total de dezenas repetidas 4-6
   // inclui as qtdes n repetidas jogo anterior 3-5
   // qtdeRepetidas > qtdeNaoRepetidasJogoAnteriorSorteadasAtual
-  int qtdeRepetidasTotal = 0;
+  int qtdeTotalGeralRepeticoes = 0;
   // total de dezenas não repetidas do jogo anterior e repetidas no atual
-  int qtdeNovasSorteioAnteriorRepetidasSorteioAtual = 0;
+  int qtdeNovasSorteioAtualDeveRepetir = 0;
   // total de dezenas novas
-  // qtdeRepetidas+qtdeNovas = 15
-  int qtdeNovas = 0;
+  // qtdeRepetidas+qtdeNovas = 157
+  int qtdeRestanteCiclo = 0;
   int repetidasMolduraSup = 0;
   int repetidasMolduraInf = 0;
   int qtefibonacci = 0;
   int totsomaSup = 0;
   int totsomaInf = 0;
-  List<int> repetidas = [];
-  List<int> naorepetidas = [];
-  List<int> novas = [];
+  int totPrimos = 0;
+  int totMult3 = 0;
+ // List<int> repetidas = [];
+ // List<int> naorepetidas = [];
+  List<int> ciclo = [];
   List<int> gerador = [];
 }

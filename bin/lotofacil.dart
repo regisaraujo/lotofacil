@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import '../lib/confere.dart';
+import '../lib/consolidar.dart';
 import '../lib/criterios.dart';
 import '../lib/ler_arquivo.dart';
 import '../lib/criticar_jogos.dart';
@@ -19,43 +21,65 @@ void main() {
   var todos = Sorteios();
   todos.loadSorteio(listJogos);
   var ciclo = Ciclos();
+  var con = Confere();
   ciclo.setSorteios(todos);
   dezciclo = ciclo.MontarCiclosSorteios();
-//  Historico(todos);
-//  Resumo(todos);
-  Simulacao(todos, dezciclo);
+  //  Historico(todos, dezciclo);
+  //Resumo(todos);
+  //Simulacao(todos, dezciclo);
+  con.Processa();
 }
 
-void Simulacao(Sorteios todos, List<int> novas) {
+void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   var comb = 15;
   List<List<int>> jogosGerados;
+  List<int> naoSorteadasUltimoSorteio = [];
   var ultSorteio = todos.lista[0];
   var penultimoSorteio = todos.lista[1];
   var gerador = GeradorJogos();
   var criterio = Criterios();
   var n = 0;
-  var totnovas = 0;
-  var adicNovas = 0;
+  var totDezenasRestanteCiclo = 0;
+  List<int> dezCicloReduzidas = [];
+  var totNaoSorteadas = 0;
   var randomIndex = 0;
   // novas contem as dezenas que ainda nao foram sorteadas no ciclo
-  print('Dezenas que faltam para fechar o ciclo');
-  print(novas);
-  totnovas = novas.length;
-  adicNovas = 5;
-  while (n < adicNovas) {
-    randomIndex = Random().nextInt(9);
-    if (!novas.contains(ultSorteio.lstNaoSorteadas[randomIndex])) {
-      novas.add(ultSorteio.lstNaoSorteadas[randomIndex]);
-      n++;
+  totDezenasRestanteCiclo = dezSortearCiclo.length;
+
+  if (totDezenasRestanteCiclo > 6) {
+    n = 0;
+    while (n < 6) {
+      randomIndex = Random().nextInt(totDezenasRestanteCiclo - 1);
+      if (!dezCicloReduzidas.contains(dezSortearCiclo[randomIndex])) {
+        dezCicloReduzidas.add(dezSortearCiclo[randomIndex]);
+        n++;
+      }
+    }
+    dezSortearCiclo = [];
+    dezSortearCiclo.addAll(dezCicloReduzidas);
+  } else {
+    totNaoSorteadas = 4;
+    while (n < totNaoSorteadas) {
+      randomIndex = Random().nextInt(9);
+      if (!naoSorteadasUltimoSorteio
+              .contains(ultSorteio.lstNaoSorteadas[randomIndex]) &&
+          !(dezSortearCiclo
+              .contains(ultSorteio.lstNaoSorteadas[randomIndex]))) {
+        naoSorteadasUltimoSorteio.add(ultSorteio.lstNaoSorteadas[randomIndex]);
+        n++;
+      }
     }
   }
-
-  novas.sort((a, b) => a.compareTo(b));
+  dezSortearCiclo.sort((a, b) => a.compareTo(b));
+  print('Dezenas que faltam para fechar o ciclo - no max 6 -');
+  print(dezSortearCiclo);
+  naoSorteadasUltimoSorteio.sort((a, b) => a.compareTo(b));
   print('Dezenas não sorteadas no ultimo jogo e selecionadas para a simulação');
-  print(novas);
+  print(naoSorteadasUltimoSorteio);
   criterio.gerador.addAll(ultSorteio.lstRepetidas);
   criterio.gerador.addAll(ultSorteio.lstNaoRepetidas);
-  criterio.gerador.addAll(novas);
+  criterio.gerador.addAll(dezSortearCiclo);
+  criterio.gerador.addAll(naoSorteadasUltimoSorteio);
   criterio.gerador.sort((a, b) => a.compareTo(b));
   print(
       'Penultimo sorteio considerado ' + penultimoSorteio.idsorteio.toString());
@@ -67,25 +91,25 @@ void Simulacao(Sorteios todos, List<int> novas) {
   print('Ultimo sorteio considerado ' + ultSorteio.idsorteio.toString());
   print(ultSorteio.lstNumerais);
   jogosGerados = gerador.GeraCombinacoes(criterio.gerador, comb);
-//  print('Total de jogos gerados ' + jogosGerados.length.toString());
-  // rever as 3 linhas seguintes
-  criterio.repetidas.addAll(ultSorteio.lstRepetidas);
-  criterio.naorepetidas.addAll(ultSorteio.lstNaoRepetidas);
-  criterio.novas.addAll(novas);
-  criterio.gpi = '';
+  criterio.ciclo.addAll(dezSortearCiclo);
+  criterio.gpi = '78';
   criterio.gpiRepetidas = '';
-  criterio.naipe = '';
-  criterio.qtdemoldura = 10;
-  criterio.qtdeNovasSorteioAnteriorRepetidasSorteioAtual = 0;
-  criterio.qtdeNovas = totnovas;
-  criterio.totsomaInf = 180;
+  criterio.naipe = '555';
+  criterio.totMult3 = 0;
+  criterio.totPrimos = 0;
+  criterio.qtdeTotalGeralRepeticoes = 10;
+  criterio.qtdeNovasSorteioAtualDeveRepetir = 4;
+  criterio.qtdeRestanteCiclo = 4; //totDezenasRestanteCiclo;
+  criterio.totsomaInf = 170;
   criterio.totsomaSup = 220;
-  criterio.qtdeRepetidasTotal = 9;
   criterio.qtefibonacci = 0;
-  criterio.repetidasMolduraSup = 5;
-  criterio.repetidasMolduraInf = 6;
+  criterio.qtdemoldura = 10;
+  criterio.repetidasMolduraSup = 7;
+  criterio.repetidasMolduraInf = 0;
   print('Conjunto de Dezenas que serão usadas para geracao de novos jogos');
-  print(criterio.gerador);
+  print(criterio.gerador.toString() +
+      '   Tam: ' +
+      criterio.gerador.length.toString());
   var criticar = CriticarJogosGerados();
   criticar.setJogos(jogosGerados);
   criticar.setCriterios(criterio);
@@ -93,10 +117,11 @@ void Simulacao(Sorteios todos, List<int> novas) {
   criticar.Processa();
 }
 
-void Historico(Sorteios todos) {
+void Historico(Sorteios todos, List<int> dezciclo) {
   var tam = todos.lista.length;
   var fim = tam - 1;
   var strfechamento = '';
+
   for (var i = fim; i > 0; i--) {
     // fim-2 subst 0
     var sorteioAnterior = todos.lista[i];
@@ -114,6 +139,7 @@ void Historico(Sorteios todos) {
     var linha6 =
         'Repetidas do jogo anterior e repetidas jogo no atual, (reptiu novamente): ';
     var linha7 = 'Dezenas Repetidas na Moldura: ';
+    var linha8 = 'Dezenas restantes ciclo: ';
     var count = 0;
 
     sorteioAnterior.lstNumerais.forEach((element) {
@@ -170,6 +196,14 @@ void Historico(Sorteios todos) {
     linha7 = linha7 + '  Total: ' + count.toString();
     print(linha7);
 
+    linha8 = linha8 +
+        '  ' +
+        sorteio.lstDezenasCiclo.toString() +
+        '  Total: de: ' +
+        sorteio.lstDezenasCiclo.length.toString() +
+        '  GPI Ciclo: ' +
+        sorteio.gpiCiclo.toString();
+    print(linha8);
     count = 0;
 
     print('Par/Impar Reptidas: ' +
@@ -178,16 +212,30 @@ void Historico(Sorteios todos) {
         sorteio.gpi +
         '  Total Fibo: ' +
         sorteio.totFibonacci.toString() +
+        '  Naipe: ' +
+        sorteio.naipe +
+        '  Naipe Fibonacci: ' +
+        sorteio.naipeFibonacci +
+        ' Primos: ' +
+        sorteio.totPrimo.toString() +
+        ' Multiplos3: ' +
+        sorteio.totMult3.toString() +
         '  Total soma dezenas: ' +
-        sorteio.totSoma.toString() +
-        '  Total da Moldura: ' +
+        sorteio.totSoma.toString());
+
+    print('Total da Moldura: ' +
         sorteio.totMoldura.toString() +
         '  Repetidas da Moldura: ' +
         sorteio.totRepMoldura.toString() +
-        '  Naipe: ' +
-        sorteio.naipe);
-    print('------------------------------------------------------');
+        ' Dez linhas: ' +
+        sorteio.totPorLinha.toString() +
+        ' Dez colunas: ' +
+        sorteio.totPorColuna.toString());
+
+    print(
+        '-------------------------------------------------------------------');
   }
+  print('Dezenas que faltam para fechar o ciclo: ' + dezciclo.toString());
 }
 
 void Resumo(Sorteios todos) {
@@ -210,10 +258,73 @@ void Resumo(Sorteios todos) {
         '  Naipe: ' +
         sorteio.naipe);
   }
+  var consolidacao = Consolidar();
+  var dc = Dados();
+  consolidacao.setSorteios(todos);
+  consolidacao.ProcessaConsolidacao();
+  var resultado = consolidacao.getGPIConsolidada();
+  resultado.keys.forEach((elementgpi) {
+    dc = resultado[elementgpi]!;
+    print('      ');
+    print('Analise para o Grupo Par/Impar (GPI): ' +
+        elementgpi +
+        ' Esse grupo foi sucedido pelo GPI: ');
+    print('      ');
+    dc.sequenciaGPI.forEach((key, value) {
+      print('     Grupo: ' + key + '  por  ' + value.toString() + ' vezes.');
+    });
+
+    print('      ');
+    print('     GPI nas repeticoes: ');
+
+    dc.qtdeParImparRepeticoes.forEach((key, value) {
+      print('     GPI: ' + key + '  por  ' + value.toString() + ' vezes.');
+    });
+
+    print('      ');
+    print('     Dezenas Repetidas na Moldura: ');
+    dc.dezRepetidasMoldura.forEach((key, value) {
+      print('     Dezena: ' +
+          key.toString() +
+          '  por  ' +
+          value.toString() +
+          ' vezes.');
+    });
+
+    print('      ');
+    print('     Qtade total de Repeticoes na Moldura: ');
+    dc.qtdeTotalRepeticoesMoldura.forEach((key, value) {
+      print('     Total: ' +
+          key.toString() +
+          '  repeticoes por  ' +
+          value.toString() +
+          ' vezes.');
+    });
+
+    print('      ');
+    print('     Qtde total de Ocorrencias de Naipes: ');
+    dc.qtdeNaipe.forEach((key, value) {
+      print('     Naipe: ' +
+          key.toString() +
+          '  ocorreu: ' +
+          value.toString() +
+          ' vezes.');
+    });
+
+    print('      ');
+    print('     Dezenas novas de um jogo pra o outro e repetidas: ');
+    dc.dezRepetidasNovas.forEach((key, value) {
+      print('     Dezena: ' +
+          key.toString() +
+          '  por  ' +
+          value.toString() +
+          ' vezes.');
+    });
+    print('      ');
+    print('----------------------------------');
+    print('      ');
+  });
 }
-
-
-
 
 /*  for (var i = inicio; i > 1; i--) {
     var repeticao = Repeticoes();
@@ -234,20 +345,20 @@ void Resumo(Sorteios todos) {
   }
 */
 //  var analise = EstruturaDadosAnalise();
-  // Carrega o conjunto de jogos que serão analisados
+// Carrega o conjunto de jogos que serão analisados
 //  analise.SetSorteios(sorteios.get());
-  //print(analise.sorteios);
-  //Processa os jogos carregados
+//print(analise.sorteios);
+//Processa os jogos carregados
 //  analise.Processa();
-  //analise.sorteios.forEach((element) {
-  //  print(element);
-  //   print('Numero do sorteio: ${element} \n');
-  //   print('Dezenas sorteadas:  ${element.listDezenas} \n ');
-  //   print('Dezenas Repetidas: ${element.lstRepetidas} \n');
-  //   print('--------------------- Fim do sorteio ----------------------');
-  //});
+//analise.sorteios.forEach((element) {
+//  print(element);
+//   print('Numero do sorteio: ${element} \n');
+//   print('Dezenas sorteadas:  ${element.listDezenas} \n ');
+//   print('Dezenas Repetidas: ${element.lstRepetidas} \n');
+//   print('--------------------- Fim do sorteio ----------------------');
+//});
 
-  /*
+/*
   print('***** Analises ******');
   analise.grupoParImpar.forEach((key, value) {
     print(
@@ -299,4 +410,3 @@ void Resumo(Sorteios todos) {
       print('${value}');
     });
   });  */
-

@@ -89,8 +89,22 @@ class Ciclos {
         indCiclo++;
         dezocorridas = [];
       }
+      sortCiclo.lstDezenasCiclo.addAll(dezNaoocorridas);
+      TotalParesImparesCiclo(sortCiclo);
     }
     //print(fechamento);
     return dezNaoocorridas;
+  }
+
+  void TotalParesImparesCiclo(Sorteio sorteio) {
+    var countPar = 0;
+    var lista = sorteio.lstDezenasCiclo;
+    lista.forEach((dez) {
+      if ((dez % 2) == 0) {
+        countPar++;
+      }
+    });
+    sorteio.gpiCiclo = countPar.toString() +
+        (sorteio.lstDezenasCiclo.length - countPar).toString();
   }
 }

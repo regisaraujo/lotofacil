@@ -8,8 +8,10 @@ class Sorteio {
   List<int> lstNovasSorteioAnteriorRepetidasSorteioAtual = [];
   List<int> lstRepetidasSorteadas = [];
   List<int> lstRepetidasMoldura = [];
+  List<int> lstDezenasCiclo = [];
   int totRepetidas = 0;
   String gpiRepet = '';
+  String gpiCiclo = '';
   int totRepMoldura = 0;
   int idsorteio = 0;
   int totPar = 0;
@@ -21,12 +23,13 @@ class Sorteio {
   int totMult3 = 0;
   bool fechamento = false;
   String naipe = '';
+  String naipeFibonacci = '';
   String gpi = '';
   String totPorLinha = '';
   String totPorColuna = '';
   String strBinario = '';
   List<int> lstNaoSorteadas = [];
-  List<int> jogoValido = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  List<int> jogoValido = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   List<int> arrBinario = [
     0,
     0,
@@ -82,8 +85,10 @@ class Sorteio {
     SetListaNumerais();
     DezenasNaoSorteadas();
     SetNaipe();
+    SetNaipeFibonacci();
     TotalFibonacci();
     TotalMoldura();
+    TotalMult3();
     TotalPrimo();
     TotalSoma();
     TotalDezenasLinha();
@@ -133,6 +138,32 @@ class Sorteio {
     naipe = n1.toString() + n2.toString() + n3.toString();
   }
 
+  // Calcula o Naipe do jogo
+  void SetNaipeFibonacci() {
+    var n1 = listDezenas.where((element) => element.numeral < 2).length;
+    var n2 = listDezenas
+        .where((element) => (element.numeral > 1) && (element.numeral < 4))
+        .length;
+    var n3 = listDezenas
+        .where((element) => (element.numeral > 3) && (element.numeral < 7))
+        .length;
+    var n5 = listDezenas
+        .where((element) => (element.numeral > 6) && (element.numeral < 12))
+        .length;
+    var n8 = listDezenas
+        .where((element) => (element.numeral > 11) && (element.numeral < 20))
+        .length;
+    var n13 = listDezenas
+        .where((element) => (element.numeral > 19) && (element.numeral < 26))
+        .length;
+    naipeFibonacci = n1.toString() +
+        n2.toString() +
+        n3.toString() +
+        n5.toString() +
+        n8.toString() +
+        n13.toString();
+  }
+
   // Calcula o total de dezenas por linha
   String TotalDezenasLinha() {
     var tl = 0;
@@ -163,6 +194,15 @@ class Sorteio {
     listDezenas.forEach((element) {
       if (element.fibonacci) {
         totFibonacci++;
+      }
+    });
+  }
+
+  void TotalMult3() {
+    totMult3 = 0;
+    listDezenas.forEach((element) {
+      if (element.mult3) {
+        totMult3++;
       }
     });
   }

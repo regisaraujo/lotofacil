@@ -17,7 +17,7 @@ class LerArquivoCSV {
 //    print(dadosString.runtimeType);
     dadosString.forEach((element) {
       //print(element.runtimeType);
-      //print(element );
+//      print(element );
       elem2list =
           (element.split(',')).map((e) => int.parse(e.toString())).toList();
       // print(elem2list.runtimeType);
