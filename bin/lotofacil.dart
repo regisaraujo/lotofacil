@@ -24,10 +24,10 @@ void main() {
   var con = Confere();
   ciclo.setSorteios(todos);
   dezciclo = ciclo.MontarCiclosSorteios();
-  //  Historico(todos, dezciclo);
+  //Historico(todos, dezciclo);
   //Resumo(todos);
-  //Simulacao(todos, dezciclo);
-  con.Processa();
+  Simulacao(todos, dezciclo);
+  //con.Processa();
 }
 
 void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
@@ -58,7 +58,8 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
     dezSortearCiclo = [];
     dezSortearCiclo.addAll(dezCicloReduzidas);
   } else {
-    totNaoSorteadas = 4;
+    totNaoSorteadas = 7;
+    // naoSorteadasUltimoSorteio.add(1);
     while (n < totNaoSorteadas) {
       randomIndex = Random().nextInt(9);
       if (!naoSorteadasUltimoSorteio
@@ -81,6 +82,12 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   criterio.gerador.addAll(dezSortearCiclo);
   criterio.gerador.addAll(naoSorteadasUltimoSorteio);
   criterio.gerador.sort((a, b) => a.compareTo(b));
+  criterio.eliminar = [];
+  print('Dezenas no gerador ');
+  print(criterio.gerador);
+  print('Dezenas que nao devem constar nos jogos ');
+  print(criterio.eliminar);
+  criterio.ExcluiEliminados();
   print(
       'Penultimo sorteio considerado ' + penultimoSorteio.idsorteio.toString());
   print(penultimoSorteio.lstNumerais);
@@ -92,19 +99,19 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   print(ultSorteio.lstNumerais);
   jogosGerados = gerador.GeraCombinacoes(criterio.gerador, comb);
   criterio.ciclo.addAll(dezSortearCiclo);
-  criterio.gpi = '78';
+  criterio.gpi = '';
   criterio.gpiRepetidas = '';
-  criterio.naipe = '555';
+  criterio.naipe = '';
   criterio.totMult3 = 0;
   criterio.totPrimos = 0;
   criterio.qtdeTotalGeralRepeticoes = 10;
   criterio.qtdeNovasSorteioAtualDeveRepetir = 4;
-  criterio.qtdeRestanteCiclo = 4; //totDezenasRestanteCiclo;
-  criterio.totsomaInf = 170;
+  criterio.qtdeRestanteCiclo = 2; //totDezenasRestanteCiclo;
+  criterio.totsomaInf = 190;
   criterio.totsomaSup = 220;
   criterio.qtefibonacci = 0;
   criterio.qtdemoldura = 10;
-  criterio.repetidasMolduraSup = 7;
+  criterio.repetidasMolduraSup = 0;
   criterio.repetidasMolduraInf = 0;
   print('Conjunto de Dezenas que serão usadas para geracao de novos jogos');
   print(criterio.gerador.toString() +

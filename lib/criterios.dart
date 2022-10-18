@@ -20,8 +20,25 @@ class Criterios {
   int totsomaInf = 0;
   int totPrimos = 0;
   int totMult3 = 0;
- // List<int> repetidas = [];
- // List<int> naorepetidas = [];
+  List<int> eliminar = [];
+  List<int> indice_eliminar = [];
+  // List<int> naorepetidas = [];
   List<int> ciclo = [];
   List<int> gerador = [];
+
+  Criterios();
+
+  void ExcluiEliminados() {
+    indice_eliminar = [];
+    gerador.forEach((numero) {
+      if (eliminar.contains(numero)) {
+        indice_eliminar.add(gerador.indexOf(numero));
+//        print(gerador.indexOf(numero).toString() + '  ' + numero.toString());
+      }
+    });
+    indice_eliminar.sort(((a, b) => a.compareTo(b)));
+    for (var ind = indice_eliminar.length - 1; ind >= 0; ind--) {
+      gerador.removeAt(indice_eliminar[ind]);
+    }
+  }
 }

@@ -135,7 +135,12 @@ class CriticarJogosGerados {
       CriticarGPIRepetidas();
     }
 
-      if (criterio.totPrimos > 0) {
+    //  if (criterio.eliminar.isNotEmpty) {
+    //    critUsados[10] = 1;
+    //    CriticarDezenasEliminadas();
+    //  }
+
+    if (criterio.totPrimos > 0) {
       critUsados[11] = 1;
       CriticarTotalPrimos();
     }
@@ -276,6 +281,20 @@ class CriticarJogosGerados {
       element.gpiRepet = gpiRep;
       if (gpiRep == criterio.gpiRepetidas) {
         element.jogoValido[9] = 1;
+      }
+    });
+  }
+
+  void CriticarDezenasEliminadas() {
+    sorteiosACriticar.lista.forEach((element) {
+      var count = 0;
+      element.lstNumerais.forEach((numero) {
+        if (criterio.eliminar.contains(numero)) {
+          count++;
+        }
+      });
+      if (count <= 1) {
+        element.jogoValido[10] = 1;
       }
     });
   }
