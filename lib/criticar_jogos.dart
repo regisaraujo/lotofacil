@@ -77,80 +77,88 @@ class CriticarJogosGerados {
   }
 
   void Processa() {
-    sorteiosACriticar.loadJogosSimulados(jogosGerados, sorteioAnterior);
-    // Posicao 0
-    if (criterio.gpi.isNotEmpty) {
-      critUsados[0] = 1;
-      CriticarGPI();
-    }
-    // Posicao 1
-    if (criterio.qtdemoldura > 0) {
-      critUsados[1] = 1;
-      CriticarTotalMoldura();
-    }
-    // Posicao 2
+    // Verificar consistencia
+    var vrep = criterio.qtdeTotalGeralRepeticoes +
+        criterio.qtdeNovasSorteioAtualDeveRepetir;
+    if (vrep > 15) {
+      print('Erro nas quantidades TotaARepetir + NOvasARepetir > 15');
+    } else {
+      sorteiosACriticar.loadJogosSimulados(jogosGerados, sorteioAnterior);
+      // Posicao 0
+      if (criterio.gpi.isNotEmpty) {
+        critUsados[0] = 1;
+        CriticarGPI();
+      }
+      // Posicao 1
+      if (criterio.qtdemoldura > 0) {
+        critUsados[1] = 1;
+        CriticarTotalMoldura();
+      }
+      // Posicao 2
 
-    if (criterio.repetidasMolduraInf > 0 && criterio.repetidasMolduraSup > 0) {
-      critUsados[2] = 1;
-      CriticarRepeticoesMoldura();
-    }
-    // Posicao 3
+      if (criterio.repetidasMolduraInf > 0 &&
+          criterio.repetidasMolduraSup > 0) {
+        critUsados[2] = 1;
+        CriticarRepeticoesMoldura();
+      }
+      // Posicao 3
 
-    if (criterio.qtdeTotalGeralRepeticoes > 0) {
-      critUsados[3] = 1;
-      CriticarTotalGeralRepeticoes();
-    }
-    // Posicao 4
+      if (criterio.qtdeTotalGeralRepeticoes > 0) {
+        critUsados[3] = 1;
+        CriticarTotalGeralRepeticoes();
+      }
+      // Posicao 4
 
-    if (criterio.qtdeNovasSorteioAtualDeveRepetir > 0) {
-      critUsados[4] = 1;
-      CriticarNovasSorteioAnteriorARepetirProximoSorteio();
-    }
-    // Posicao 5
+      if (criterio.qtdeNovasSorteioAtualDeveRepetir > 0) {
+        critUsados[4] = 1;
+        CriticarNovasSorteioAnteriorARepetirProximoSorteio();
+      }
+      // Posicao 5
 
-    if (criterio.naipe.isNotEmpty) {
-      critUsados[5] = 1;
-      CriticarNaipe();
-    }
-    // Posicao 6
-    if (criterio.qtefibonacci > 0) {
-      critUsados[6] = 1;
-      CriticarFibonacci();
-    }
+      if (criterio.naipe.isNotEmpty) {
+        critUsados[5] = 1;
+        CriticarNaipe();
+      }
+      // Posicao 6
+      if (criterio.qtefibonacci > 0) {
+        critUsados[6] = 1;
+        CriticarFibonacci();
+      }
 
-    // Posicao 7
-    if (criterio.qtdeRestanteCiclo > 0) {
-      critUsados[7] = 1;
-      CriticarQtdeRestanteCiclo();
+      // Posicao 7
+      if (criterio.qtdeRestanteCiclo > 0) {
+        critUsados[7] = 1;
+        CriticarQtdeRestanteCiclo();
+      }
+
+      // Posicao 8
+      if (criterio.totsomaInf > 0 && criterio.totsomaSup > 0) {
+        critUsados[8] = 1;
+        CriticarTotalSoma();
+      }
+
+      if (criterio.gpiRepetidas != '') {
+        critUsados[9] = 1;
+        CriticarGPIRepetidas();
+      }
+
+      //  if (criterio.eliminar.isNotEmpty) {
+      //    critUsados[10] = 1;
+      //    CriticarDezenasEliminadas();
+      //  }
+
+      if (criterio.totPrimos > 0) {
+        critUsados[11] = 1;
+        CriticarTotalPrimos();
+      }
+
+      if (criterio.totMult3 > 0) {
+        critUsados[12] = 1;
+        CriticarTotalMultiplo3();
+      }
+
+      Print();
     }
-
-    // Posicao 8
-    if (criterio.totsomaInf > 0 && criterio.totsomaSup > 0) {
-      critUsados[8] = 1;
-      CriticarTotalSoma();
-    }
-
-    if (criterio.gpiRepetidas != '') {
-      critUsados[9] = 1;
-      CriticarGPIRepetidas();
-    }
-
-    //  if (criterio.eliminar.isNotEmpty) {
-    //    critUsados[10] = 1;
-    //    CriticarDezenasEliminadas();
-    //  }
-
-    if (criterio.totPrimos > 0) {
-      critUsados[11] = 1;
-      CriticarTotalPrimos();
-    }
-
-    if (criterio.totMult3 > 0) {
-      critUsados[12] = 1;
-      CriticarTotalMultiplo3();
-    }
-
-    Print();
   }
 
   void CriticarGPI() {
@@ -316,6 +324,7 @@ class CriticarJogosGerados {
   }
 
   void Print() {
+    var matches = 0;
     var linha1 = '';
     //  print(sorteiosACriticar.lista.length);
     sorteiosACriticar.lista.forEach((jogosim) {
@@ -339,6 +348,7 @@ class CriticarJogosGerados {
           (jogosim.jogoValido[13] == critUsados[13]) &&
           (jogosim.jogoValido[14] == critUsados[14])) {
         linha1 = '';
+        matches++;
         jogosim.lstNumerais.forEach((number) {
           linha1 = linha1 + '  ' + number.toString();
         });
@@ -362,6 +372,7 @@ class CriticarJogosGerados {
         print(linha1);
       }
     });
+    print('Total matches: ' + matches.toString());
   }
 }
 

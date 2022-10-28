@@ -8,13 +8,59 @@ class Confere {
 
     final leitura = LerArquivoCSV('jogos.csv');
     myJogos = leitura.ler();
-    List<int> acertos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     if (myJogos.isEmpty) {
       print('Lista dos jogos não foi carregada');
       return;
     }
     var tam = myJogos.length;
     var fim = tam - 1;
+    List<int> acertos = [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+    ];
 
     for (var ind = 1; ind <= fim; ind++) {
       myJogos[ind].forEach((element) {
