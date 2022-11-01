@@ -1,3 +1,4 @@
+import '../lib/busca_seq_gpi.dart';
 import '../lib/historico.dart';
 import '../lib/simulacao.dart';
 import '../lib/resumo.dart';
@@ -21,12 +22,17 @@ void main() {
   }
   var todos = Sorteios();
   todos.loadSorteio(listJogos);
+  var busca = BuscaSequenciaGPI();
   var ciclo = Ciclos();
   var con = Confere();
+  busca.sorteios = todos;
   ciclo.setSorteios(todos);
   dezciclo = ciclo.MontarCiclosSorteios();
   //Historico(todos, dezciclo);
   //Resumo(todos);
   Simulacao(todos, dezciclo);
   //con.Processa();
+  //busca.LoadSequencia(4);
+  //var ret = busca.Execute();
+  //print(ret);
 }

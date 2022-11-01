@@ -9,10 +9,10 @@ class GeradorJogos {
   List<List<int>> GeraCombinacoes(List<int> numeros, int comb) {
     List<List<int>> gerados = [];
     if (numeros.length < comb) {
-      print('Tamanho do vetor simulaçãõ menor que ' + comb.toString());
+      print('Tamanho do vetor simulação menor que ' + comb.toString());
       return [];
     }
-    numeros.sort((a, b) => a.compareTo(b));
+    //numeros.sort((a, b) => a.compareTo(b));
     final jogos = Combinations(comb, numeros);
     for (final jogo in jogos()) {
       gerados.add(jogo);
@@ -40,7 +40,7 @@ class CriticarJogosGerados {
     0,
     0,
     0,
-    0
+    0,
   ]; // Total de 15 criterios
   Sorteio sorteioAnterior = Sorteio();
   List<int> lstMoldura = [
@@ -78,87 +78,86 @@ class CriticarJogosGerados {
 
   void Processa() {
     // Verificar consistencia
-    var vrep = criterio.qtdeTotalGeralRepeticoes +
-        criterio.qtdeNovasSorteioAtualDeveRepetir;
-    if (vrep > 15) {
-      print('Erro nas quantidades TotaARepetir + NOvasARepetir > 15');
-    } else {
-      sorteiosACriticar.loadJogosSimulados(jogosGerados, sorteioAnterior);
-      // Posicao 0
-      if (criterio.gpi.isNotEmpty) {
-        critUsados[0] = 1;
-        CriticarGPI();
-      }
-      // Posicao 1
-      if (criterio.qtdemoldura > 0) {
-        critUsados[1] = 1;
-        CriticarTotalMoldura();
-      }
-      // Posicao 2
-
-      if (criterio.repetidasMolduraInf > 0 &&
-          criterio.repetidasMolduraSup > 0) {
-        critUsados[2] = 1;
-        CriticarRepeticoesMoldura();
-      }
-      // Posicao 3
-
-      if (criterio.qtdeTotalGeralRepeticoes > 0) {
-        critUsados[3] = 1;
-        CriticarTotalGeralRepeticoes();
-      }
-      // Posicao 4
-
-      if (criterio.qtdeNovasSorteioAtualDeveRepetir > 0) {
-        critUsados[4] = 1;
-        CriticarNovasSorteioAnteriorARepetirProximoSorteio();
-      }
-      // Posicao 5
-
-      if (criterio.naipe.isNotEmpty) {
-        critUsados[5] = 1;
-        CriticarNaipe();
-      }
-      // Posicao 6
-      if (criterio.qtefibonacci > 0) {
-        critUsados[6] = 1;
-        CriticarFibonacci();
-      }
-
-      // Posicao 7
-      if (criterio.qtdeRestanteCiclo > 0) {
-        critUsados[7] = 1;
-        CriticarQtdeRestanteCiclo();
-      }
-
-      // Posicao 8
-      if (criterio.totsomaInf > 0 && criterio.totsomaSup > 0) {
-        critUsados[8] = 1;
-        CriticarTotalSoma();
-      }
-
-      if (criterio.gpiRepetidas != '') {
-        critUsados[9] = 1;
-        CriticarGPIRepetidas();
-      }
-
-      //  if (criterio.eliminar.isNotEmpty) {
-      //    critUsados[10] = 1;
-      //    CriticarDezenasEliminadas();
-      //  }
-
-      if (criterio.totPrimos > 0) {
-        critUsados[11] = 1;
-        CriticarTotalPrimos();
-      }
-
-      if (criterio.totMult3 > 0) {
-        critUsados[12] = 1;
-        CriticarTotalMultiplo3();
-      }
-
-      Print();
+//    int vrep = 0;
+//    if (vrep > 15) {
+//      print('Erro nas quantidades TotalARepetir + NovasARepetir > 15');
+//    } else {
+    sorteiosACriticar.loadJogosSimulados(jogosGerados, sorteioAnterior);
+    // Posicao 0
+    if (criterio.gpi.isNotEmpty) {
+      critUsados[0] = 1;
+      CriticarGPI();
     }
+    // Posicao 1
+    if (criterio.qtdemoldura > 0) {
+      critUsados[1] = 1;
+      CriticarTotalMoldura();
+    }
+    // Posicao 2
+
+    if (criterio.repetidasMolduraInf > 0 && criterio.repetidasMolduraSup > 0) {
+      critUsados[2] = 1;
+      CriticarRepeticoesMoldura();
+    }
+    // Posicao 3
+
+    if (criterio.qtdeTotalGeralRepeticoes > 0) {
+      critUsados[3] = 1;
+      CriticarTotalGeralRepeticoes();
+    }
+    // Posicao 4
+
+    if (criterio.qtdeNovasUltimoSorteioDeveraRepetir > 0) {
+      critUsados[4] = 1;
+      CriticarNovasSorteioAnteriorARepetirProximoSorteio();
+    }
+    // Posicao 5
+
+    if (criterio.naipe.isNotEmpty) {
+      critUsados[5] = 1;
+      CriticarNaipe();
+    }
+    // Posicao 6
+    if (criterio.qtefibonacci > 0) {
+      critUsados[6] = 1;
+      CriticarFibonacci();
+    }
+
+    // Posicao 7
+    if (criterio.qtdeRestanteCiclo > 0) {
+      critUsados[7] = 1;
+      CriticarQtdeRestanteCiclo();
+    }
+
+    // Posicao 8
+    if (criterio.totsomaInf > 0 && criterio.totsomaSup > 0) {
+      critUsados[8] = 1;
+      CriticarTotalSoma();
+    }
+
+    // Posicao 9
+    if (criterio.gpiRepetidas != '') {
+      critUsados[9] = 1;
+      CriticarGPIRepetidas();
+    }
+
+    //  if (criterio.eliminar.isNotEmpty) {
+    //    critUsados[10] = 1;
+    //    CriticarDezenasEliminadas();
+    //  }
+
+    if (criterio.totPrimos > 0) {
+      critUsados[11] = 1;
+      CriticarTotalPrimos();
+    }
+
+    if (criterio.totMult3 > 0) {
+      critUsados[12] = 1;
+      CriticarTotalMultiplo3();
+    }
+
+    Print();
+    //  }
   }
 
   void CriticarGPI() {
@@ -222,7 +221,7 @@ class CriticarJogosGerados {
           count++;
         }
       });
-      if (count == criterio.qtdeNovasSorteioAtualDeveRepetir) {
+      if (count == criterio.qtdeNovasUltimoSorteioDeveraRepetir) {
         element.jogoValido[4] = 1;
       }
       //print('Nao Repetidas ' + count.toString());
@@ -277,8 +276,19 @@ class CriticarJogosGerados {
 
   void CriticarGPIRepetidas() {
     sorteiosACriticar.lista.forEach((element) {
-      var cimp, cpar = 0;
-      var gpiRep = '';
+//      var cimp, cpar = 0;
+//      var gpiRep = '';
+/*      if (element.gpiRepet == criterio.gpiRepetidas) {
+        print(element.gpiRepet.toString() +
+            '   ' +
+            criterio.gpiRepetidas.toString());
+      }*/
+      if (element.gpiRepet == criterio.gpiRepetidas) {
+        element.jogoValido[9] = 1;
+      }
+    });
+  }
+/*
       element.lstRepetidas.forEach((numero) {
         if ((numero % 2) == 0) {
           cpar++;
@@ -291,7 +301,7 @@ class CriticarJogosGerados {
         element.jogoValido[9] = 1;
       }
     });
-  }
+  */
 
   void CriticarDezenasEliminadas() {
     sorteiosACriticar.lista.forEach((element) {
@@ -326,10 +336,12 @@ class CriticarJogosGerados {
   void Print() {
     var matches = 0;
     var linha1 = '';
-    //  print(sorteiosACriticar.lista.length);
+//    print(sorteiosACriticar.lista.length);
     sorteiosACriticar.lista.forEach((jogosim) {
-//      print('Criterio:  ' + critUsados.toString());
-//      print('Jogo:      ' + jogosim.jogoValido.toString());
+//      print('Criterio:  ' +
+//          critUsados.toString() +
+//          ' Jogo: ' +
+//          jogosim.jogoValido.toString());
 //      print('---------------------------');
 
       if ((jogosim.jogoValido[0] == critUsados[0]) &&
@@ -357,17 +369,26 @@ class CriticarJogosGerados {
             jogosim.totSoma.toString() +
             ' Moldura: ' +
             jogosim.totMoldura.toString() +
-            '  GPI ' +
+            ' GPI ' +
             jogosim.gpi +
-            '  GPI Repetidas ' +
+            ' GPI Repetidas ' +
             jogosim.gpiRepet +
-            '  Naipe  ' +
+            ' Naipe  ' +
             jogosim.naipe +
-            '  Repetidas Moldura: ' +
+            ' Fibo: ' +
+            jogosim.totFibonacci.toString() +
+            '  ' +
+            ' Primo: ' +
+            jogosim.totPrimo.toString() +
+            '  ' +
+            ' Mult3: ' +
+            jogosim.totMult3.toString() +
+            '  ' +
+            'RepMoldura: ' +
             jogosim.totRepMoldura.toString() +
-            ' Total Repetidas: ' +
+            ' TotRepet: ' +
             jogosim.totRepetidas.toString() +
-            '  Novas do jogo Anterior e Repetidas no Atual: ' +
+            ' NovasRepet: ' +
             jogosim.lstNovasSorteioAnteriorRepetidasSorteioAtual.toString();
         print(linha1);
       }
@@ -375,41 +396,3 @@ class CriticarJogosGerados {
     print('Total matches: ' + matches.toString());
   }
 }
-
-/*
-  void Imprime() {
-    var tam = simul.lista.length;
-    var fim = tam - 1;
-
-    print(tam);
-    print(fim);
-    for (var i = 0; i < fim; i++) {
-      var sorteio = simul.lista[i];
-      var linha2 = 'Jogo: ';
-      var count = 0;
-
-      sorteio.lstNumerais.forEach((element) {
-        linha2 = linha2 + '  ' + element.toString();
-        count++;
-      });
-      linha2 = linha2 + '  Total: ' + count.toString();
-      print(linha2);
-      count = 0;
-      print('Par/Impar Reptidas: ' +
-          sorteio.gpiRepet +
-          '  Par/Impar Sorteio: ' +
-          sorteio.gpi +
-          '  Total Fibo: ' +
-          sorteio.totFibonacci.toString() +
-          '  Total soma dezenas: ' +
-          sorteio.totSoma.toString() +
-          '  Total da Moldura: ' +
-          sorteio.totMoldura.toString() +
-          '  Repetidas da Moldura: ' +
-          sorteio.totRepMoldura.toString() +
-          '  Naipe: ' +
-          sorteio.naipe);
-      print('------------------------------------------------------');
-    }
-  }
-*/

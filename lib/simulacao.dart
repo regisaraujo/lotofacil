@@ -28,6 +28,9 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   if (maxNaoSorteadasPossiveis > 5) {
     maxNaoSorteadasPossiveis = 5;
   }
+  maxNaoSorteadasPossiveis = 6;
+  naoSorteadasUltimoSorteio = [2, 7, 9, 20];
+
   rangeMax = ultSorteio.lstNaoSorteadas.length;
   while (n < maxNaoSorteadasPossiveis) {
     randomIndex = Random().nextInt(rangeMax);
@@ -38,16 +41,15 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
       n++;
     }
   }
-
   dezSortearCiclo.sort((a, b) => a.compareTo(b));
   print('Dezenas que faltam para fechar o ciclo - no max 6 -');
   print(dezSortearCiclo);
-  naoSorteadasUltimoSorteio.sort((a, b) => a.compareTo(b));
+  //naoSorteadasUltimoSorteio.sort((a, b) => a.compareTo(b));
   print('Dezenas não sorteadas no ultimo jogo e selecionadas para a simulação');
   print(naoSorteadasUltimoSorteio);
-  criterio.eliminar = [];
-  criterio.gerador.addAll(ultSorteio.lstRepetidas);
-  criterio.gerador.addAll(ultSorteio.lstNaoRepetidas);
+  //criterio.eliminar = [10, 17, 23];
+  criterio.gerador.addAll(ultSorteio.lstNumerais);
+//  criterio.gerador.addAll(ultSorteio.lstNaoRepetidas);
   criterio.gerador.addAll(dezSortearCiclo);
   criterio.gerador.addAll(naoSorteadasUltimoSorteio);
   criterio.gerador.sort((a, b) => a.compareTo(b));
@@ -67,17 +69,17 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   print(ultSorteio.lstNumerais);
   jogosGerados = gerador.GeraCombinacoes(criterio.gerador, comb);
   criterio.ciclo.addAll(dezSortearCiclo);
-  criterio.gpi = '78';
+  criterio.gpi = '96';
   criterio.gpiRepetidas = '';
   criterio.naipe = '';
-  criterio.totMult3 = 0;
-  criterio.totPrimos = 7;
-  criterio.qtdeTotalGeralRepeticoes = 9;
-  criterio.qtdeNovasSorteioAtualDeveRepetir = 4;
-  criterio.qtdeRestanteCiclo = totDezenasRestanteCiclo - 1;
-  criterio.totsomaInf = 180;
-  criterio.totsomaSup = 220;
-  criterio.qtefibonacci = 5;
+  criterio.totMult3 = 5;
+  criterio.totPrimos = 6;
+  criterio.qtdeTotalGeralRepeticoes = 10;
+  criterio.qtdeNovasUltimoSorteioDeveraRepetir = 0;
+  criterio.qtdeRestanteCiclo = totDezenasRestanteCiclo;
+  criterio.totsomaInf = 170;
+  criterio.totsomaSup = 210;
+  criterio.qtefibonacci = 4;
   criterio.qtdemoldura = 10;
   criterio.repetidasMolduraSup = 0;
   criterio.repetidasMolduraInf = 0;

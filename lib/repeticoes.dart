@@ -38,14 +38,14 @@ class Repeticoes {
           sorteioAnterior, sorteio);
       repeticao.DezenasNovasSorteioAnteriorRepetidasSorteioAtual(
           sorteioAnterior, sorteio);
-      repeticao.TotalParesImparesListaDeRepetidasEntre2Jogos(sorteio);
+      repeticao.GPIdeRepetidasEntre2Jogos(sorteio);
       repeticao.TotalRepetidasMoldura(sorteio);
     }
   }
 
-
   void ProcessaSimulacao(List<Sorteio> lstSorteios, Sorteio sorteioAnterior) {
     var fim = lstSorteios.length - 1;
+
     for (var i = fim; i > 0; i--) {
       var repeticao = Repeticoes();
       var sorteio = lstSorteios[i];
@@ -55,7 +55,7 @@ class Repeticoes {
           sorteioAnterior, sorteio);
       repeticao.DezenasNovasSorteioAnteriorRepetidasSorteioAtual(
           sorteioAnterior, sorteio);
-      repeticao.TotalParesImparesListaDeRepetidasEntre2Jogos(sorteio);
+      repeticao.GPIdeRepetidasEntre2Jogos(sorteio);
       repeticao.TotalRepetidasMoldura(sorteio);
     }
   }
@@ -100,7 +100,7 @@ class Repeticoes {
     });
   }
 
-  void TotalParesImparesListaDeRepetidasEntre2Jogos(Sorteio sorteio) {
+  void GPIdeRepetidasEntre2Jogos(Sorteio sorteio) {
     var countPar = 0;
     var lista = sorteio.lstRepetidas;
     lista.forEach((dez) {
@@ -110,6 +110,7 @@ class Repeticoes {
     });
     sorteio.gpiRepet = countPar.toString() +
         (sorteio.lstRepetidas.length - countPar).toString();
+    //   print(sorteio.gpiRepet);
   }
 
   void TotalRepetidasMoldura(Sorteio sorteio) {

@@ -9,7 +9,7 @@ class Criterios {
   // qtdeRepetidas > qtdeNaoRepetidasJogoAnteriorSorteadasAtual
   int qtdeTotalGeralRepeticoes = 0;
   // total de dezenas não repetidas do jogo anterior e repetidas no atual
-  int qtdeNovasSorteioAtualDeveRepetir = 0;
+  int qtdeNovasUltimoSorteioDeveraRepetir = 0;
   // total de dezenas novas
   // qtdeRepetidas+qtdeNovas = 157
   int qtdeRestanteCiclo = 0;
