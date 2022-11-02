@@ -30,6 +30,34 @@ class Sorteio {
   String strBinario = '';
   List<int> lstNaoSorteadas = [];
   List<int> jogoValido = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  List<int> ranking = [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+  ];
+
   List<int> arrBinario = [
     0,
     0,

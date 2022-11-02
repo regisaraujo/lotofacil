@@ -7,8 +7,14 @@ import 'sorteios.dart';
 void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   var comb = 15;
   List<List<int>> jogosGerados;
+  List<List<int>> jogosRanking = [];
+  todos.lista.forEach((element) {
+    jogosRanking.add(element.lstNumerais);
+  });
+
   List<int> naoSorteadasUltimoSorteio = [];
   var ultSorteio = todos.lista[0];
+  List<int> rankingDezenas = RankingDezenas(jogosRanking);
   var penultimoSorteio = todos.lista[1];
   var gerador = GeradorJogos();
   var criterio = Criterios();
@@ -28,20 +34,47 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   if (maxNaoSorteadasPossiveis > 5) {
     maxNaoSorteadasPossiveis = 5;
   }
-  maxNaoSorteadasPossiveis = 6;
-  naoSorteadasUltimoSorteio = [2, 7, 9, 20];
-
-  rangeMax = ultSorteio.lstNaoSorteadas.length;
-  while (n < maxNaoSorteadasPossiveis) {
-    randomIndex = Random().nextInt(rangeMax);
-    if (!naoSorteadasUltimoSorteio
-            .contains(ultSorteio.lstNaoSorteadas[randomIndex]) &&
-        !(dezSortearCiclo.contains(ultSorteio.lstNaoSorteadas[randomIndex]))) {
-      naoSorteadasUltimoSorteio.add(ultSorteio.lstNaoSorteadas[randomIndex]);
+  naoSorteadasUltimoSorteio = [];
+  n = 0;
+  for (var r = 0; r < 25; r++) {
+    if ((rankingDezenas[r] > 0) &&
+        (rankingDezenas[r] < 4) &&
+        (!ultSorteio.lstNumerais.contains(r + 1)) &&
+        n < 2) {
+      naoSorteadasUltimoSorteio.add(r + 1);
       n++;
     }
+    if (n >= 2) {
+      break;
+    }
   }
+
+  n = 0;
+
+  for (var r = 0; r < 25; r++) {
+    if ((rankingDezenas[r] > 3) &&
+        (rankingDezenas[r] < 6) &&
+        (!ultSorteio.lstNumerais.contains(r + 1)) &&
+        n < 3) {
+      naoSorteadasUltimoSorteio.add(r + 1);
+      n++;
+    }
+    if (n > 2) {
+      break;
+    }
+  }
+
+  for (var r = 0; r < 25; r++) {
+    if ((rankingDezenas[r] > 5) && (!ultSorteio.lstNumerais.contains(r + 1))) {
+      naoSorteadasUltimoSorteio.add(r + 1);
+    }
+  }
+
   dezSortearCiclo.sort((a, b) => a.compareTo(b));
+  print(
+      'Dezenas             1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24  25');
+  print('Ranking Dezenas: ' + rankingDezenas.toString());
+
   print('Dezenas que faltam para fechar o ciclo - no max 6 -');
   print(dezSortearCiclo);
   //naoSorteadasUltimoSorteio.sort((a, b) => a.compareTo(b));
@@ -72,15 +105,15 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   criterio.gpi = '96';
   criterio.gpiRepetidas = '';
   criterio.naipe = '';
-  criterio.totMult3 = 5;
-  criterio.totPrimos = 6;
-  criterio.qtdeTotalGeralRepeticoes = 10;
+  criterio.totMult3 = 0;
+  criterio.totPrimos = 0;
+  criterio.qtdeTotalGeralRepeticoes = 0;
   criterio.qtdeNovasUltimoSorteioDeveraRepetir = 0;
   criterio.qtdeRestanteCiclo = totDezenasRestanteCiclo;
   criterio.totsomaInf = 170;
   criterio.totsomaSup = 210;
-  criterio.qtefibonacci = 4;
-  criterio.qtdemoldura = 10;
+  criterio.qtefibonacci = 0;
+  criterio.qtdemoldura = 9;
   criterio.repetidasMolduraSup = 0;
   criterio.repetidasMolduraInf = 0;
   print('Conjunto de Dezenas que serão usadas para geracao de novos jogos');
@@ -92,4 +125,42 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   criticar.setCriterios(criterio);
   criticar.setJogoAnterior(ultSorteio);
   criticar.Processa();
+}
+
+List<int> RankingDezenas(List<List<int>> lstNumeros) {
+  var fim = 10; //lstNumeros.length - 1;
+  List<int> qtdeDezenas = [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ];
+  for (var i = 0; i < fim; i++) {
+    lstNumeros[i].forEach((element) {
+      qtdeDezenas[element - 1]++;
+    });
+    print(lstNumeros[i]);
+  }
+  return qtdeDezenas;
 }

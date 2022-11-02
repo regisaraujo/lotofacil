@@ -6,7 +6,9 @@ class Sorteios {
   int totSorteios = 0;
   Sorteio sorteioAnterior = Sorteio();
   List<Sorteio> lista = [];
-
+  List<int> dezQuentes = [];
+  List<int> dezMornas = [];
+  List<int> dezFrias = [];
   Sorteios();
 
   List<Sorteio> get() => lista;
