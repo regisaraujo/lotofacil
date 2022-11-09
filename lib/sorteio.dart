@@ -29,62 +29,10 @@ class Sorteio {
   String totPorColuna = '';
   String strBinario = '';
   List<int> lstNaoSorteadas = [];
-  List<int> jogoValido = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  List<int> ranking = [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-  ];
-
-  List<int> arrBinario = [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-  ];
+  List<int> jogoValido = List<int>.filled(15, 0);
+  List<int> ranking = List<int>.filled(25, 0);
+  Map<int, int> sinteticoRanking = {}; //List<int>.filled(15, 0);
+  List<int> arrBinario = List<int>.filled(25, 0);
 
   Sorteio();
 

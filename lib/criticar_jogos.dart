@@ -141,11 +141,6 @@ class CriticarJogosGerados {
       CriticarGPIRepetidas();
     }
 
-    //  if (criterio.eliminar.isNotEmpty) {
-    //    critUsados[10] = 1;
-    //    CriticarDezenasEliminadas();
-    //  }
-
     if (criterio.totPrimos > 0) {
       critUsados[11] = 1;
       CriticarTotalPrimos();
@@ -154,6 +149,16 @@ class CriticarJogosGerados {
     if (criterio.totMult3 > 0) {
       critUsados[12] = 1;
       CriticarTotalMultiplo3();
+    }
+
+    if (criterio.dezenasPorLinhas.isNotEmpty) {
+      critUsados[13] = 1;
+      CriticarDezenasPorLinhas();
+    }
+
+    if (criterio.dezenasPorColunas.isNotEmpty) {
+      critUsados[14] = 1;
+      CriticarDezenasPorColunas();
     }
 
     Print();
@@ -276,32 +281,11 @@ class CriticarJogosGerados {
 
   void CriticarGPIRepetidas() {
     sorteiosACriticar.lista.forEach((element) {
-//      var cimp, cpar = 0;
-//      var gpiRep = '';
-/*      if (element.gpiRepet == criterio.gpiRepetidas) {
-        print(element.gpiRepet.toString() +
-            '   ' +
-            criterio.gpiRepetidas.toString());
-      }*/
       if (element.gpiRepet == criterio.gpiRepetidas) {
         element.jogoValido[9] = 1;
       }
     });
   }
-/*
-      element.lstRepetidas.forEach((numero) {
-        if ((numero % 2) == 0) {
-          cpar++;
-        }
-      });
-      cimp = 15 - cpar;
-      gpiRep = cpar.toString() + cimp.toString();
-      element.gpiRepet = gpiRep;
-      if (gpiRep == criterio.gpiRepetidas) {
-        element.jogoValido[9] = 1;
-      }
-    });
-  */
 
   void CriticarDezenasEliminadas() {
     sorteiosACriticar.lista.forEach((element) {
@@ -329,6 +313,22 @@ class CriticarJogosGerados {
     sorteiosACriticar.lista.forEach((element) {
       if (element.totMult3 == criterio.totMult3) {
         element.jogoValido[12] = 1;
+      }
+    });
+  }
+
+  void CriticarDezenasPorLinhas() {
+    sorteiosACriticar.lista.forEach((element) {
+      if (element.totPorLinha == criterio.dezenasPorLinhas) {
+        element.jogoValido[13] = 1;
+      }
+    });
+  }
+
+  void CriticarDezenasPorColunas() {
+    sorteiosACriticar.lista.forEach((element) {
+      if (element.totPorColuna == criterio.dezenasPorColunas) {
+        element.jogoValido[14] = 1;
       }
     });
   }
@@ -388,6 +388,10 @@ class CriticarJogosGerados {
             jogosim.totRepMoldura.toString() +
             ' TotRepet: ' +
             jogosim.totRepetidas.toString() +
+            ' DezLinha: ' +
+            jogosim.totPorLinha +
+            ' DezColuna: ' +
+            jogosim.totPorColuna +
             ' NovasRepet: ' +
             jogosim.lstNovasSorteioAnteriorRepetidasSorteioAtual.toString();
         print(linha1);

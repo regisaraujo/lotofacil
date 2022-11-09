@@ -23,6 +23,8 @@ void Historico(Sorteios todos, List<int> dezciclo) {
         'Repetidas do jogo anterior e repetidas jogo no atual, (reptiu novamente): ';
     var linha7 = 'Dezenas Repetidas na Moldura: ';
     var linha8 = 'Dezenas restantes ciclo: ';
+    var linha21 = 'Ranking  Sorteio anterior: ';
+    var linha22 = 'Resumo Ranking nesse sorteio: ';
     var count = 0;
 
     sorteioAnterior.lstNumerais.forEach((element) {
@@ -35,10 +37,17 @@ void Historico(Sorteios todos, List<int> dezciclo) {
 
     sorteio.lstNumerais.forEach((element) {
       linha2 = linha2 + '  ' + element.toString();
+      linha21 =
+          linha21 + '  ' + sorteioAnterior.ranking[element - 1].toString();
       count++;
     });
     linha2 = linha2 + '  Total: ' + count.toString() + '  ' + strfechamento;
     print(linha2);
+    sorteio.sinteticoRanking.forEach((key, value) {
+      linha22 = linha22 + ' ' + key.toString() + ' ' + value.toString() + 'x  ';
+    });
+    print(linha21);
+    print(linha22);
     count = 0;
 
     sorteio.lstRepetidas.forEach((element) {
@@ -114,7 +123,7 @@ void Historico(Sorteios todos, List<int> dezciclo) {
         sorteio.totPorLinha.toString() +
         ' Dez colunas: ' +
         sorteio.totPorColuna.toString());
-
+    print('Ranking: ' + sorteio.ranking.toString());
     print(
         '-------------------------------------------------------------------');
   }

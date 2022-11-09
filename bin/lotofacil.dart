@@ -1,3 +1,4 @@
+import '../lib/rankings.dart';
 import '../lib/busca_seq_gpi.dart';
 import '../lib/historico.dart';
 import '../lib/simulacao.dart';
@@ -28,11 +29,12 @@ void main() {
   busca.sorteios = todos;
   ciclo.setSorteios(todos);
   dezciclo = ciclo.MontarCiclosSorteios();
-  //Historico(todos, dezciclo);
+  // Historico(todos, dezciclo);
+  //Rankings(todos);
   //Resumo(todos);
   Simulacao(todos, dezciclo);
   //con.Processa();
-  //busca.LoadSequencia(4);
+  //busca.LoadSequencia(2);
   //var ret = busca.Execute();
   //print(ret);
 }

@@ -21,8 +21,15 @@ class Sorteios {
 
   void loadSorteio(List<List<int>> dados) {
     var sorteio = Sorteio();
+    var contadorLinha = 0;
     dados.forEach((numjogo) {
       sorteio.idsorteio = numjogo[0];
+      if (contadorLinha + 10 < dados.length) {
+        var faixa =
+            dados.getRange(contadorLinha, (contadorLinha + 10)).toList();
+        sorteio.ranking = RankingDezenas(faixa);
+        sorteio.sinteticoRanking = SinteticoRanking(sorteio.ranking);
+      }
       for (var ind = 1; ind < 16; ind++) {
         sorteio.listDezenas.add((ProcessaDezena(numjogo[ind])));
       }
@@ -33,6 +40,7 @@ class Sorteios {
       sorteio.Processa();
       lista.add(sorteio);
       sorteio = Sorteio();
+      contadorLinha++;
     });
     var repeticoes = Repeticoes();
     repeticoes.Processa(lista);
@@ -58,4 +66,35 @@ class Sorteios {
   void Sort() {
     lista.sort((a, b) => a.idsorteio.compareTo(b.idsorteio));
   }
+
+  List<int> RankingDezenas(List<List<int>> faixa) {
+    var tam = faixa.length;
+    List<int> qtdeDezenas = List<int>.filled(25, 0);
+    for (var i = 0; i < tam; i++) {
+      faixa[i].forEach((element) {
+        if (faixa[i].indexOf(element) > 0) {
+          qtdeDezenas[element - 1]++;
+        }
+      });
+    }
+    return qtdeDezenas;
+  }
+
+  Map<int,int> SinteticoRanking(List<int> ranking) {
+    Map<int, int> mapRank = {};
+    ranking.forEach((qtdocorr) {
+       if (mapRank.containsKey(qtdocorr)) {
+          mapRank.update(qtdocorr, (value) => value+1 ); 
+       } else {
+          mapRank[qtdocorr]=1;
+       }
+     });
+    return mapRank; 
+  }
+
+
+  
 }
+
+
+

@@ -59,6 +59,9 @@ class BuscaSequenciaGPI {
               'Soma ' +
               sorteios.lista[v].totSoma.toString() +
               ' ' +
+              ' DezLin ' +
+              sorteios.lista[v].totPorLinha +
+              ' ' +
               'Mold ' +
               sorteios.lista[v].totMoldura.toString() +
               ' ' +
@@ -104,6 +107,9 @@ class BuscaSequenciaGPI {
               ' ' +
               'Soma ' +
               sorteios.lista[seg].totSoma.toString() +
+              ' ' +
+              ' DezLin ' +
+              sorteios.lista[seg].totPorLinha +
               ' ' +
               'Mold ' +
               sorteios.lista[seg].totMoldura.toString() +

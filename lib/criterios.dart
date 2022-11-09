@@ -15,6 +15,9 @@ class Criterios {
   int qtdeRestanteCiclo = 0;
   int repetidasMolduraSup = 0;
   int repetidasMolduraInf = 0;
+  int totnovas = 0;
+  String dezenasPorLinhas = '';
+  String dezenasPorColunas = '';
   int qtefibonacci = 0;
   int totsomaSup = 0;
   int totsomaInf = 0;
