@@ -123,7 +123,10 @@ void Historico(Sorteios todos, List<int> dezciclo) {
         sorteio.totPorLinha.toString() +
         ' Dez colunas: ' +
         sorteio.totPorColuna.toString());
-    print('Ranking: ' + sorteio.ranking.toString());
+    print('Ranking: ' +
+        sorteio.rankSorteio.toString() +
+        '  Soma: ' +
+        sorteio.somaRank.toString());
     print(
         '-------------------------------------------------------------------');
   }

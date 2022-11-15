@@ -31,6 +31,8 @@ class Sorteio {
   List<int> lstNaoSorteadas = [];
   List<int> jogoValido = List<int>.filled(15, 0);
   List<int> ranking = List<int>.filled(25, 0);
+  List<int> rankSorteio = List<int>.filled(15, 0);
+  int somaRank = 0;
   Map<int, int> sinteticoRanking = {}; //List<int>.filled(15, 0);
   List<int> arrBinario = List<int>.filled(25, 0);
 

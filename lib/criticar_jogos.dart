@@ -12,7 +12,19 @@ class GeradorJogos {
       print('Tamanho do vetor simulação menor que ' + comb.toString());
       return [];
     }
-    //numeros.sort((a, b) => a.compareTo(b));
+    numeros.sort((a, b) => a.compareTo(b));
+    int n = 0;
+    print('original ' + numeros.toString());
+    while (n < numeros.length - 2) {
+      if (numeros[n] == numeros[n + 1]) {
+        print('Repetido: ' + numeros[n + 1].toString());
+        numeros.removeAt(n + 1);
+        numeros.sort((a, b) => a.compareTo(b));
+        n = 0;
+      } else {
+        n++;
+      }
+    }
     final jogos = Combinations(comb, numeros);
     for (final jogo in jogos()) {
       gerados.add(jogo);
@@ -393,10 +405,19 @@ class CriticarJogosGerados {
             ' DezColuna: ' +
             jogosim.totPorColuna +
             ' NovasRepet: ' +
-            jogosim.lstNovasSorteioAnteriorRepetidasSorteioAtual.toString();
+            jogosim.lstNovasSorteioAnteriorRepetidasSorteioAtual.toString() +
+            ' Ranking :' +
+            jogosim.rankSorteio.toString() +
+            ' Soma do Ranking :' +
+            jogosim.somaRank.toString();
+
         print(linha1);
       }
     });
     print('Total matches: ' + matches.toString());
+    print('Ranking: ' + sorteioAnterior.ranking.toString());
+    sorteioAnterior.sinteticoRanking.forEach((key, value) {
+      print('Ranking ' + key.toString() + '  vezes: ' + value.toString());
+    });
   }
 }

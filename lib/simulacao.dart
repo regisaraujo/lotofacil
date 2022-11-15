@@ -22,8 +22,8 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   // novas contem as dezenas que ainda nao foram sorteadas no ciclo
   totDezenasRestanteCiclo = dezSortearCiclo.length;
 
-  if (totDezenasRestanteCiclo > 5) {
-    totDezenasRestanteCiclo = 5;
+  if (totDezenasRestanteCiclo > 4) {
+    totDezenasRestanteCiclo = 3;
   }
   maxNaoSorteadasPossiveis = 10 - totDezenasRestanteCiclo;
   if (maxNaoSorteadasPossiveis > 5) {
@@ -39,6 +39,7 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
     for (var r = 0; r < 25; r++) {
       if ((ultSorteio.ranking[r] > 5) &&
           (!ultSorteio.lstNumerais.contains(r + 1)) &&
+          (!naoSorteadasUltimoSorteio.contains(r + 1)) &&
           n < 7) {
         naoSorteadasUltimoSorteio.add(r + 1);
         n++;
@@ -55,6 +56,7 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
       if ((ultSorteio.ranking[r] < 6) &&
           (ultSorteio.ranking[r] > 2) &&
           (!ultSorteio.lstNumerais.contains(r + 1)) &&
+          (!naoSorteadasUltimoSorteio.contains(r + 1)) &&
           n < 5) {
         naoSorteadasUltimoSorteio.add(r + 1);
         n++;
@@ -67,6 +69,8 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
 
   dezSortearCiclo.sort((a, b) => a.compareTo(b));
   print('Ranking Dezenas: ' + ultSorteio.ranking.toString());
+  print('Ranking Sintetico: ' + ultSorteio.sinteticoRanking.toString());
+
   print('Dezenas que faltam para fechar o ciclo ');
   print(dezSortearCiclo);
   //naoSorteadasUltimoSorteio.sort((a, b) => a.compareTo(b));
@@ -74,8 +78,6 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   print(naoSorteadasUltimoSorteio);
   //criterio.eliminar = [10, 17, 23];
   criterio.gerador.addAll(ultSorteio.lstNumerais);
-//  criterio.gerador.addAll(ultSorteio.lstNaoRepetidas);
-  criterio.gerador.addAll(dezSortearCiclo);
   criterio.gerador.addAll(naoSorteadasUltimoSorteio);
   criterio.gerador.sort((a, b) => a.compareTo(b));
   print('Dezenas no gerador ');
@@ -94,20 +96,24 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   print(ultSorteio.lstNumerais);
   jogosGerados = gerador.GeraCombinacoes(criterio.gerador, comb);
   criterio.ciclo.addAll(dezSortearCiclo);
-  criterio.gpi = '78';
+  criterio.gpi = '69';
   criterio.gpiRepetidas = '';
   criterio.naipe = '';
   criterio.totMult3 = 0;
   criterio.totPrimos = 0;
-  criterio.qtdeTotalGeralRepeticoes = 0;
-  criterio.qtdeNovasUltimoSorteioDeveraRepetir = 0;
-  criterio.totnovas = 15 - criterio.qtdeTotalGeralRepeticoes;
-  criterio.qtdeRestanteCiclo = totDezenasRestanteCiclo;
+  criterio.qtdeTotalGeralRepeticoes = 10;
+  criterio.qtdeNovasUltimoSorteioDeveraRepetir = 4;
+  criterio.qtdeRestanteCiclo = totDezenasRestanteCiclo - 3;
+  var poenovas =
+      15 - criterio.qtdeRestanteCiclo - criterio.qtdeTotalGeralRepeticoes;
+  if (poenovas > 0) {
+    criterio.totnovas = poenovas;
+  }
   criterio.dezenasPorLinhas = '';
   criterio.dezenasPorColunas = '';
   criterio.totsomaInf = 0;
   criterio.totsomaSup = 0;
-  criterio.qtefibonacci = 4;
+  criterio.qtefibonacci = 6;
   criterio.qtdemoldura = 10;
   criterio.repetidasMolduraSup = 0;
   criterio.repetidasMolduraInf = 0;

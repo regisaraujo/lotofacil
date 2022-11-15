@@ -21,7 +21,7 @@ class SequenciaGPI {
 
   Map<String, Map<String, int>> get() => gpiSequencia;
 
-  // Ordena por gpi  
+  // Ordena por gpi
   void Sort() {
     gpiSequencia.forEach((key, value) {
       var mapEntries = gpiSequencia[key]!.entries.toList()

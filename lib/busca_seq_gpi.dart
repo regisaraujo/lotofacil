@@ -61,18 +61,18 @@ class BuscaSequenciaGPI {
               ' ' +
               ' DezLin ' +
               sorteios.lista[v].totPorLinha +
-              ' ' +
-              'Mold ' +
+              ' Mold ' +
               sorteios.lista[v].totMoldura.toString() +
-              ' ' +
-              'MoldR ' +
+              ' MoldR ' +
               sorteios.lista[v].totRepMoldura.toString() +
-              ' ' +
-              'Primo ' +
+              ' Primo ' +
               sorteios.lista[v].totPrimo.toString() +
-              ' ' +
-              'Mult3 ' +
-              sorteios.lista[v].totMult3.toString());
+              ' Mult3 ' +
+              sorteios.lista[v].totMult3.toString() +
+              ' Soma Ranking ' +
+              sorteios.lista[v].somaRank.toString() +
+              ' Ranking ' +
+              sorteios.lista[v].rankSorteio.toString());
         }
         var seg = i - lim;
 
@@ -119,9 +119,12 @@ class BuscaSequenciaGPI {
               ' ' +
               'Primo ' +
               sorteios.lista[seg].totPrimo.toString() +
-              ' ' +
-              'Mult3 ' +
-              sorteios.lista[seg].totMult3.toString());
+              ' Mult3 ' +
+              sorteios.lista[seg].totMult3.toString() +
+              ' Soma Ranking ' +
+              sorteios.lista[seg].somaRank.toString() +
+              ' Ranking ' +
+              sorteios.lista[seg].rankSorteio.toString());
         }
       }
     }
