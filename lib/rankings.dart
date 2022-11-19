@@ -54,7 +54,7 @@ Map<int, int> SinteticoRanking(List<int> ranking) {
 void ProcessaRankingSorteio(Sorteio simulado, List<int> ranking) {
   simulado.lstNumerais.forEach((element) {
     simulado.rankSorteio[simulado.lstNumerais.indexOf(element)] =
-        ranking[element];
-    simulado.somaRank = simulado.somaRank + ranking[element];
+        ranking[element - 1];
+    simulado.somaRank = simulado.somaRank + ranking[element - 1];
   });
 }

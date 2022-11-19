@@ -29,12 +29,12 @@ void main() {
   busca.sorteios = todos;
   ciclo.setSorteios(todos);
   dezciclo = ciclo.MontarCiclosSorteios();
-  //Historico(todos, dezciclo);
+  Historico(todos, dezciclo);
   //Rankings(todos);
   //Resumo(todos);
   //Simulacao(todos, dezciclo);
   //con.Processa();
-  busca.LoadSequencia(4);
-  var ret = busca.Execute();
-  print(ret);
+  //busca.LoadSequencia(4);
+  //var ret = busca.Execute();
+  //print(ret);
 }

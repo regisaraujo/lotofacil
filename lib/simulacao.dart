@@ -96,14 +96,14 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   print(ultSorteio.lstNumerais);
   jogosGerados = gerador.GeraCombinacoes(criterio.gerador, comb);
   criterio.ciclo.addAll(dezSortearCiclo);
-  criterio.gpi = '69';
+  criterio.gpi = '105';
   criterio.gpiRepetidas = '';
   criterio.naipe = '';
   criterio.totMult3 = 0;
   criterio.totPrimos = 0;
   criterio.qtdeTotalGeralRepeticoes = 10;
   criterio.qtdeNovasUltimoSorteioDeveraRepetir = 4;
-  criterio.qtdeRestanteCiclo = totDezenasRestanteCiclo - 3;
+  criterio.qtdeRestanteCiclo = totDezenasRestanteCiclo;
   var poenovas =
       15 - criterio.qtdeRestanteCiclo - criterio.qtdeTotalGeralRepeticoes;
   if (poenovas > 0) {
@@ -113,10 +113,10 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   criterio.dezenasPorColunas = '';
   criterio.totsomaInf = 0;
   criterio.totsomaSup = 0;
-  criterio.qtefibonacci = 6;
-  criterio.qtdemoldura = 10;
-  criterio.repetidasMolduraSup = 0;
-  criterio.repetidasMolduraInf = 0;
+  criterio.qtefibonacci = 3;
+  criterio.qtdemoldura = 9;
+  criterio.repetidasMolduraSup = 5;
+  criterio.repetidasMolduraInf = 6;
   print('Conjunto de Dezenas que serão usadas para geracao de novos jogos');
   print(criterio.gerador.toString() +
       '   Tam: ' +
