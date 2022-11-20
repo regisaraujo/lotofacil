@@ -3,6 +3,7 @@ class Criterios {
   String gpiRepetidas = '';
   String naipe = '';
   int qtdemoldura = 0;
+  final numerosOuro = [5,6,7,12,13,14,19,20,21];
 
   // total de dezenas repetidas 4-6
   // inclui as qtdes n repetidas jogo anterior 3-5

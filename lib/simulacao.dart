@@ -1,16 +1,20 @@
+import 'package:lotofacil/random.dart';
+
 import 'criterios.dart';
 import 'criticar_jogos.dart';
 import 'sorteios.dart';
 
 void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
-  var comb = 15;
+  final comb = 15;
+  final numerosOuro = [5, 6, 7, 12, 13, 14, 19, 20, 21];
+
   List<List<int>> jogosGerados;
   List<List<int>> jogosRanking = [];
   todos.lista.forEach((element) {
     jogosRanking.add(element.lstNumerais);
   });
 
-  List<int> naoSorteadasUltimoSorteio = [];
+  var naoSorteadasUltimoSorteio = <int>[];
   var ultSorteio = todos.lista[0];
   var penultimoSorteio = todos.lista[1];
   var gerador = GeradorJogos();
@@ -51,13 +55,15 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   }
 
   if (naoSorteadasUltimoSorteio.length < totNaoSorteadasAIncluir) {
+    final listGrow =
+        List<int>.generate(25, (int index) => index + 1, growable: true);
     n = 0;
-    for (var r = 0; r < 25; r++) {
+    while (n < 5) {
+      final r = getRandomElement(listGrow);
       if ((ultSorteio.ranking[r] < 6) &&
           (ultSorteio.ranking[r] > 2) &&
           (!ultSorteio.lstNumerais.contains(r + 1)) &&
-          (!naoSorteadasUltimoSorteio.contains(r + 1)) &&
-          n < 5) {
+          (!naoSorteadasUltimoSorteio.contains(r + 1))) {
         naoSorteadasUltimoSorteio.add(r + 1);
         n++;
       }
@@ -96,11 +102,11 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   print(ultSorteio.lstNumerais);
   jogosGerados = gerador.GeraCombinacoes(criterio.gerador, comb);
   criterio.ciclo.addAll(dezSortearCiclo);
-  criterio.gpi = '105';
+  criterio.gpi = '510';
   criterio.gpiRepetidas = '';
   criterio.naipe = '';
-  criterio.totMult3 = 0;
-  criterio.totPrimos = 0;
+  criterio.totMult3 = 5;
+  criterio.totPrimos = 7;
   criterio.qtdeTotalGeralRepeticoes = 10;
   criterio.qtdeNovasUltimoSorteioDeveraRepetir = 4;
   criterio.qtdeRestanteCiclo = totDezenasRestanteCiclo;
@@ -111,12 +117,12 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   }
   criterio.dezenasPorLinhas = '';
   criterio.dezenasPorColunas = '';
-  criterio.totsomaInf = 0;
-  criterio.totsomaSup = 0;
-  criterio.qtefibonacci = 3;
-  criterio.qtdemoldura = 9;
-  criterio.repetidasMolduraSup = 5;
-  criterio.repetidasMolduraInf = 6;
+  criterio.totsomaInf = 190;
+  criterio.totsomaSup = 210;
+  criterio.qtefibonacci = 6;
+  criterio.qtdemoldura = 10;
+  criterio.repetidasMolduraSup = 0;
+  criterio.repetidasMolduraInf = 0;
   print('Conjunto de Dezenas que serão usadas para geracao de novos jogos');
   print(criterio.gerador.toString() +
       '   Tam: ' +
