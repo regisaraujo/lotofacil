@@ -348,17 +348,15 @@ class CriticarJogosGerados {
   void Print() {
     var matches = 0;
     var linha1 = '';
-    var conta = 0;
 //    print(sorteiosACriticar.lista.length);
     sorteiosACriticar.lista.forEach((jogosim) {
-      conta = 0;
-      criterio.numerosOuro.forEach((nouro) {
-        if (jogosim.lstNumerais.contains(nouro)) {
-          conta++;
-        }
-      });
-      if (conta > 5 &&
-          (jogosim.jogoValido[0] == critUsados[0]) &&
+      //  conta = 0;
+      //  criterio.numerosOuro.forEach((nouro) {
+      //    if (jogosim.lstNumerais.contains(nouro)) {
+      //      conta++;
+      //    }
+      //  });
+      if ((jogosim.jogoValido[0] == critUsados[0]) &&
           (jogosim.jogoValido[1] == critUsados[1]) &&
           (jogosim.jogoValido[2] == critUsados[2]) &&
           (jogosim.jogoValido[3] == critUsados[3]) &&
