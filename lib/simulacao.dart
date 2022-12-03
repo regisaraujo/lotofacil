@@ -22,28 +22,24 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   var n = 0;
   var totDezenasRestanteCiclo = 0;
   var maxNaoSorteadasPossiveis = 0;
-  var totNaoSorteadasAIncluir = 8;
   // novas contem as dezenas que ainda nao foram sorteadas no ciclo
   totDezenasRestanteCiclo = dezSortearCiclo.length;
 
   if (totDezenasRestanteCiclo > 4) {
     totDezenasRestanteCiclo = 5;
   }
-  maxNaoSorteadasPossiveis = 10 - totDezenasRestanteCiclo;
-  if (maxNaoSorteadasPossiveis > 5) {
-    maxNaoSorteadasPossiveis = 5;
-  }
+  maxNaoSorteadasPossiveis = 5;
   naoSorteadasUltimoSorteio = [];
-  if (dezSortearCiclo.isNotEmpty) {
-    for (var s = 1; s < totDezenasRestanteCiclo; s++) {
-      var dc = getRandomElement(dezSortearCiclo);
-      if (!naoSorteadasUltimoSorteio.contains(dc)) {
-        naoSorteadasUltimoSorteio.addAll(dezSortearCiclo);
-      }
+  var s = 0;
+  while (s < maxNaoSorteadasPossiveis) {
+    var dc = getRandomElement(ultSorteio.lstNaoSorteadas);
+    if (!naoSorteadasUltimoSorteio.contains(dc)) {
+      naoSorteadasUltimoSorteio.add(dc);
+      s++;
     }
   }
-  final listGrow =
-      List<int>.generate(25, (int index) => index + 1, growable: true);
+  //final listGrow =
+  //    List<int>.generate(25, (int index) => index + 1, growable: true);
 
 //  dezSortearCiclo.sort((a, b) => a.compareTo(b));
   print('Ranking Dezenas: ' + ultSorteio.ranking.toString());
@@ -54,7 +50,7 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   //naoSorteadasUltimoSorteio.sort((a, b) => a.compareTo(b));
   print('Dezenas não sorteadas no ultimo jogo e selecionadas para a simulação');
   print(naoSorteadasUltimoSorteio);
-  //criterio.eliminar = [10, 17, 23];
+  criterio.eliminar = [];
   criterio.gerador.addAll(ultSorteio.lstNumerais);
   criterio.gerador.addAll(naoSorteadasUltimoSorteio);
   criterio.gerador.sort((a, b) => a.compareTo(b));
@@ -77,10 +73,10 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   criterio.gpi = '69';
   criterio.gpiRepetidas = '';
   criterio.naipe = '';
-  criterio.totMult3 = 5;
-  criterio.totPrimos = 7;
-  criterio.qtdeTotalGeralRepeticoes = 11;
-  criterio.qtdeNovasUltimoSorteioDeveraRepetir = 3;
+  criterio.totMult3 = 0;
+  criterio.totPrimos = 0;
+  criterio.qtdeTotalGeralRepeticoes = 9;
+  criterio.qtdeNovasUltimoSorteioDeveraRepetir = 0;
   criterio.qtdeRestanteCiclo = totDezenasRestanteCiclo;
   var poenovas =
       15 - criterio.qtdeRestanteCiclo - criterio.qtdeTotalGeralRepeticoes;
@@ -91,7 +87,7 @@ void Simulacao(Sorteios todos, List<int> dezSortearCiclo) {
   criterio.dezenasPorColunas = '';
   criterio.totsomaInf = 0;
   criterio.totsomaSup = 0;
-  criterio.qtefibonacci = 5;
+  criterio.qtefibonacci = 6;
   criterio.qtdemoldura = 10;
   criterio.repetidasMolduraSup = 0;
   criterio.repetidasMolduraInf = 0;

@@ -32,7 +32,7 @@ void main() {
   //Rankings(todos);
   //Resumo(todos);
   Simulacao(todos, dezciclo);
-  //busca.LoadSequencia(5);
+  //busca.LoadSequencia(3);
   //final ret = busca.Execute();
   //print(ret);
   //var con = Confere();
