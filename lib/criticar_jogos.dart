@@ -13,7 +13,7 @@ class GeradorJogos {
       return [];
     }
     numeros.sort((a, b) => a.compareTo(b));
-    int n = 0;
+    var n = 0;
     print('original ' + numeros.toString());
     while (n < numeros.length - 2) {
       if (numeros[n] == numeros[n + 1]) {

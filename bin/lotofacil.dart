@@ -31,10 +31,10 @@ void main() {
   //Historico(todos, dezciclo);
   //Rankings(todos);
   //Resumo(todos);
-  Simulacao(todos, dezciclo);
-  //busca.LoadSequencia(3);
-  //final ret = busca.Execute();
-  //print(ret);
+  //Simulacao(todos, dezciclo);
+  busca.LoadSequencia(4);
+  final ret = busca.Execute();
+  print(ret);
   //var con = Confere();
   //con.Processa();
 }
